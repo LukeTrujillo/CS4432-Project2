@@ -6,7 +6,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+
+import index.IndexPointer;
 
 public class BlockLoader {
 	
@@ -16,6 +19,8 @@ public class BlockLoader {
 	private final static File directory = new File(directory_str);
 	
 	private static Record[] allRecords = null;
+	
+	private static HashMap<Integer, Record[]> loadedBlocks = new HashMap<Integer, Record[]>();
 	
 	public static Record[] getAllRecords() {
 		if(allRecords != null) {
@@ -37,6 +42,12 @@ public class BlockLoader {
 	}
 	
 	public static Record[] getRecords(int blockNumber) {
+		
+		if(loadedBlocks.containsKey(blockNumber)) {
+			return loadedBlocks.get(blockNumber);
+		}
+		
+		
 		try {
 			
 			String blockString = Files.readAllLines(Paths.get(directory_str + "/F" + blockNumber + ".txt")).get(0);
@@ -54,12 +65,33 @@ public class BlockLoader {
 				records.add(record);
 			}
 		
-			return records.toArray(new Record[0]);
+			
+			loadedBlocks.put(blockNumber, records.toArray(new Record[0]));
+			
+			return getRecords(blockNumber);
 		} catch (IOException e) {
 			System.out.println("Could not read file #" + blockNumber);
 			e.printStackTrace();
 		}
 		
 		return null;
+	}
+	
+	
+	public static Record getRecord(IndexPointer ptr) {
+		return getRecords(ptr.getFileNumber())[ptr.getRecordNumber() - 1];
+	}
+	
+	public static int getLoadedBlockCount() {
+		return loadedBlocks.size();
+	}
+	
+	/**
+	 * This function will remove any cached blocks during a query
+	 */
+	public static void flush() {
+		allRecords = null;
+		
+		loadedBlocks = new HashMap<Integer, Record[]>();
 	}
 }
