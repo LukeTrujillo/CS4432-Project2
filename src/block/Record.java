@@ -34,9 +34,15 @@ public class Record {
 	public static Record parseRecord(String query_string) {
 		String[] parts = query_string.split(", ");
 		
+		int fileNumber = Integer.parseInt(parts[0].substring(1, 3));
+		int recordNumber = Integer.parseInt(parts[0].substring(8));
 		
+		String name = parts[1].substring(0, parts[1].length() - 3);
+		String address = parts[2].substring(0, parts[2].length() - 3);
 		
-		return null;
+		int randomValue = Integer.parseInt(parts[3].substring(0, parts[3].indexOf(".")));
+		
+		return new Record(fileNumber, recordNumber, randomValue, address, name);
 	}
 	
 }

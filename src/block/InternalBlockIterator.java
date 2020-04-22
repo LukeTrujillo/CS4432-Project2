@@ -22,7 +22,7 @@ public class InternalBlockIterator implements Iterator<String> {
 
 	@Override
 	public boolean hasNext() {
-		return currentPosition >= recordStrings.length;
+		return currentPosition < recordStrings.length;
 	}
 
 	@Override

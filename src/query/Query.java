@@ -1,6 +1,7 @@
 package query;
 
-public class Query {
+import block.Record;
 
+public class Query {
 	
 }

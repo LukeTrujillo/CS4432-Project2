@@ -14,6 +14,12 @@ public class IndexPointer {
 		this.recordNumber = recordNumber;
 	}
 	
+	public int getFileNumber() {
+		return fileNumber;
+	}
+	public int getRecordNumber() {
+		return recordNumber;
+	}
 	
 	public Record getRecord() {
 		return null;
