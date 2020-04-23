@@ -20,8 +20,5 @@ public class IndexPointer {
 	public int getRecordNumber() {
 		return recordNumber;
 	}
-	
-	public Record getRecord() {
-		return null;
-	}
+
 }

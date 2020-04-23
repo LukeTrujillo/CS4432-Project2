@@ -1,5 +1,7 @@
 package block;
 
+import main.Helper;
+
 public class Record {
 
 	public final static int RECORD_SIZE = 40;
@@ -27,15 +29,20 @@ public class Record {
 	
 	
 	public String toString() {
-		return null;
+		String pFN = Helper.padNumber(fileNumber, 2);
+		String pRN = Helper.padNumber(recordNumber, 3);
+		
+		return "F" + pFN
+		+ "-Rec" + pRN + ", " + name +pRN+ ", " + address + pRN + ", " + Helper.padNumber(randomV, 4) + "...";
 	}
 	
 	
+	
 	public static Record parseRecord(String query_string) {
-		String[] parts = query_string.split(", ");
+ 		String[] parts = query_string.split(", ");
 		
 		int fileNumber = Integer.parseInt(parts[0].substring(1, 3));
-		int recordNumber = Integer.parseInt(parts[0].substring(8));
+		int recordNumber = Integer.parseInt(parts[0].substring(7));
 		
 		String name = parts[1].substring(0, parts[1].length() - 3);
 		String address = parts[2].substring(0, parts[2].length() - 3);

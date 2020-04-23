@@ -1,16 +1,27 @@
 package index;
 
+import java.util.ArrayList;
+
+import block.BlockLoader;
 import block.Record;
 
-public class DefaultIndex implements Index<Integer> {
+public class DefaultIndex implements Index {
 
-	@Override
-	public Record[] get(Integer value) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public ArrayList<Record> get(Integer value) {
+		ArrayList<Record> list = new ArrayList<Record>();
+		
+		Record all[] = BlockLoader.getAllRecords();
+			
+		for(Record r : all) {
+			if(value == r.getRandomValue()) {
+				list.add(r);
+			}
+		}
+		
+		return list;
 	}
 
-	@Override
 	public void put(Integer value, IndexPointer indexPointer) {
 		// TODO Auto-generated method stub
 		

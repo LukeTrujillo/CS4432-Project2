@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import block.BlockLoader;
 import block.Record;
 
-public class ArrayIndex implements Index<Integer> {
+public class ArrayIndex implements Index {
 	
 	
 	private ArrayList<IndexPointer> index[];
@@ -16,20 +16,26 @@ public class ArrayIndex implements Index<Integer> {
 		
 		load();
 	}
-	
-	@Override
-	public Record[] get(Integer value) {
-		// TODO Auto-generated method stub
-		return null;
+
+	public ArrayList<Record> get(Integer value) {
+		ArrayList<Record> res = new ArrayList<Record>();
+		
+		if(index[value - 1] == null) return res;
+		
+		for(IndexPointer ptr : index[value - 1]) {
+			res.add(BlockLoader.getRecord(ptr));
+		}
+		
+		
+		return res;
 	}
 
-	@Override
 	public void put(Integer value, IndexPointer indexPointer) {
-		if(index[value] == null) {
-			index[value] = new ArrayList<IndexPointer>();
+		if(index[value - 1] == null) {
+			index[value - 1] = new ArrayList<IndexPointer>();
 		}
 	
-		index[value].add(indexPointer);
+		index[value - 1].add(indexPointer);
 	}
 	
 	public void load() {

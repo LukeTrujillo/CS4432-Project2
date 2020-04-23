@@ -7,15 +7,7 @@ public class Helper {
 
 	
 	public static String padNumber(int number, int length) {
-		String target = Integer.toString(number);
-		
-		int padding_needed = target.length() - length;
-	
-		for(int x = 0; x < padding_needed; x++) {
-			target = "0" + target;
-		}
-		
-		return target;
+		return String.format("%0" + length + "d", number);
 	}
 	
 	/*

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import block.Record;
 import block.BlockLoader;
 
-public class HashIndex implements Index<Integer> {
+public class HashIndex implements Index {
 	private HashMap<Integer, ArrayList<IndexPointer>> index;
 	
 	private int lastGetBlocksRead;
@@ -30,7 +30,6 @@ public class HashIndex implements Index<Integer> {
 	}
 
 	
-	@Override
 	public void put(Integer randomValue, IndexPointer indexPointer) {
 		
 		ArrayList<IndexPointer> tempList = null;
@@ -46,8 +45,7 @@ public class HashIndex implements Index<Integer> {
 		index.put(randomValue, tempList);
 	}
 
-	@Override
-	public Record[] get(Integer randomValue) {
+	public ArrayList<Record> get(Integer randomValue) {
 		ArrayList<IndexPointer> list = index.get(randomValue);
 		
 		if(list == null) return null;
@@ -59,7 +57,7 @@ public class HashIndex implements Index<Integer> {
 			results.add(BlockLoader.getRecord(ptr));
 		}
 		
-		return results.toArray(new Record[0]);
+		return results;
 	}
 	
 	public String toString() { return "HashIndex used";}

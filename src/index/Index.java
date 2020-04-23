@@ -1,11 +1,13 @@
 package index;
 
+import java.util.ArrayList;
+
 import block.Record;
 
-public interface Index<N> {
-	Record[] get(Integer value);
+public interface Index {
+	ArrayList<Record> get(Integer value);
 	
-	void put(N value, IndexPointer indexPointer);
+	void put(Integer value, IndexPointer indexPointer);
 
 	String toString();
 	

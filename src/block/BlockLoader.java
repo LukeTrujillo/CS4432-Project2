@@ -79,6 +79,8 @@ public class BlockLoader {
 	
 	
 	public static Record getRecord(IndexPointer ptr) {
+		if(ptr.getRecordNumber() == 0) System.out.println("f: " + ptr.getFileNumber() + " r: " + ptr.getRecordNumber());
+		
 		return getRecords(ptr.getFileNumber())[ptr.getRecordNumber() - 1];
 	}
 	
